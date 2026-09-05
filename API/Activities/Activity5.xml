@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="bf8a1fbd-3a22-42c8-803c-7d551977822d" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Activity5" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings/>
+      <con:testStep type="datasource" name="DataSource" id="884599bb-71b3-40b0-a322-4faab44d5416">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <dataSourceType>EXCEL</dataSourceType>
+          <dataSourceProperties>
+            <entry key="File" value="testdata.xlsx"/>
+            <entry key="Worksheet" value="Sheet1"/>
+            <entry key="Start Row" value="1"/>
+          </dataSourceProperties>
+          <dataSourceLoopIndex>-1</dataSourceLoopIndex>
+          <properties>
+            <entry key="IP Address" value=""/>
+          </properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="IPLookup" id="13cdaa57-48ae-43ce-880d-f009b3ccd095">
+        <con:settings/>
+        <con:config service="http://ip-api.com" methodName="IPLookup" resourcePath="/json/{ip}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="IPLookup" id="3baa0bc2-b6e4-42a3-acab-bb91932c2a57" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://ip-api.com</con:endpoint>
+            <con:request/>
+            <con:originalUri>http://ip-api.com/json/{ip}</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="a306f760-61f1-4ec0-bc0c-32a2d70ac612" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="ip" value="${DataSource#IP Address}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="7f98ec90-2c49-4c3d-8dfa-d675154b7b25">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceLoopStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <targetStep>DataSource</targetStep>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

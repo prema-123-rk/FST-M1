@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" id="eba02b5d-8cec-4254-9242-ded3b36fbd76" activeEnvironment="Default" name="GitHubSSHKeyProject" resourceRoot="">
+
+    <con:properties>
+    <con:property>
+      <con:name>githubAccessToken</con:name>
+      <con:value>REPLACE_WITH_YOUR_TOKEN_IN_SOAPUI_NOT_HERE</con:value>
+    </con:property>
+  </con:properties>
+
+  <con:testSuite id="52d51bf2-3f5b-4e82-9afd-a5d6d26077ad" name="GitHubSSHKeyActivity">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+
+    <con:testCase id="6a4a9dcc-3cc4-4f57-8628-e659013fc84b" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="SSH Key Lifecycle" searchProperties="true" timeout="0">
+      <con:settings/>
+
+            <con:testStep type="restrequest" name="AddSSHKey" id="6bd37331-6253-44bc-9c79-baba6f1b5c32">
+        <con:settings/>
+        <con:config service="https://api.github.com" methodName="AddSSHKey" resourcePath="/user/keys" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="AddSSHKey" id="6a6c2b62-498e-4c3c-8b96-4e6cdaedc390" mediaType="application/json" method="POST">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://api.github.com</con:endpoint>
+            <con:request><![CDATA[{
+    "title": "TestKey",
+    "key": "ssh-ed25519 AAAA...REPLACE_WITH_YOUR_PUBLIC_KEY_CONTENTS user@host"
+}]]></con:request>
+            <con:originalUri>https://api.github.com/user/keys</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="99a21073-904f-409f-92e4-24f9e7ac9ccc" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>201</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>GitHubOAuth</con:selectedAuthProfile>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+
+            <con:testStep type="transfer" name="Transfer keyId" id="ef76903b-46f2-4caa-a27f-f6f802a2e96b">
+        <con:settings/>
+        <con:config xsi:type="con:XQueryTransferStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:transfer name="keyId" xsi:type="con:PropertyTransfer">
+            <con:sourceStep>AddSSHKey</con:sourceStep>
+            <con:sourceProperty>Response</con:sourceProperty>
+            <con:sourcePath>$['id']</con:sourcePath>
+            <con:sourceType>JSONPath</con:sourceType>
+            <con:targetStep>#TestCase#</con:targetStep>
+            <con:targetProperty>keyId</con:targetProperty>
+          </con:transfer>
+        </con:config>
+      </con:testStep>
+
+            <con:testStep type="restrequest" name="GetSSHKey" id="5d4d9212-a96e-4ee7-b118-02172d6c7c4a">
+        <con:settings/>
+        <con:config service="https://api.github.com" methodName="GetSSHKey" resourcePath="/user/keys/{keyId}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="GetSSHKey" id="5bbe0713-599c-41f6-8b2e-c8ef9f77a249" mediaType="application/json" method="GET">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://api.github.com</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://api.github.com/user/keys/{keyId}</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="8bd0a29e-1cfc-4339-a6a4-d94fcba6bc65" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>GitHubOAuth</con:selectedAuthProfile>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="keyId" value="${#TestCase#keyId}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+
+            <con:testStep type="restrequest" name="DeleteSSHKey" id="1a2b3c4d-5e6f-47a8-9b0c-1d2e3f4a5b6c">
+        <con:settings/>
+        <con:config service="https://api.github.com" methodName="DeleteSSHKey" resourcePath="/user/keys/{keyId}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="DeleteSSHKey" id="2b3c4d5e-6f7a-48b9-9c0d-2e3f4a5b6c7d" mediaType="application/json" method="DELETE">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://api.github.com</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://api.github.com/user/keys/{keyId}</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="3c4d5e6f-7a8b-49c0-8d1e-3f4a5b6c7d8e" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>204</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>GitHubOAuth</con:selectedAuthProfile>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="keyId" value="${#TestCase#keyId}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+
+      <con:properties>
+        <con:property>
+          <con:name>keyId</con:name>
+          <con:value/>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+  </con:testSuite>
+
+  </con:soapui-project>

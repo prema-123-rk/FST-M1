@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="1276ee82-4c66-42cf-95ed-1da8db3840ef" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Prema" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+
+  <con:testStep type="restrequest" name="CreateUser" id="89f20c6b-d2cf-42cf-9296-1271a9e678d7">
+    <con:settings/>
+    <con:config service="https://petstore.swagger.io" methodName="Method 1" resourcePath="/v2/user" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:restRequest name="CreateUser" id="3db9c617-a549-4d31-b000-51add49d21d9" mediaType="application/json" postQueryString="false">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>https://petstore.swagger.io</con:endpoint>
+        <con:request>{
+  "id": 2001,
+  "username": "prema-123-rk",
+  "firstName": "Prema",
+  "lastName": "RK",
+  "email": "prema.rk@ibm.com",
+  "password": "prema-123-rk",
+  "phone": "234567890",
+  "userStatus": 0
+}</con:request>
+        <con:originalUri>https://petstore.swagger.io/v2/user</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="7b5d8ee6-c5fc-4241-a919-740e48084c1b" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration><codes>200</codes></con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters/>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+
+  <con:testStep type="restrequest" name="Login" id="975172b1-d3a0-4922-b58c-4aae412c547a">
+    <con:settings/>
+    <con:config service="https://petstore.swagger.io" resourcePath="/v2/user/login" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:restRequest name="Login" id="05dc7f74-b95a-43c1-91fa-546f0a0839b8" mediaType="application/json">
+        <con:settings/>
+        <con:endpoint>https://petstore.swagger.io</con:endpoint>
+        <con:request/>
+        <con:originalUri>https://petstore.swagger.io/v2/user/login</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="694406ea-b379-4356-be4b-aec78657ce97" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration><codes>200</codes></con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters>
+          <con:entry key="password" value="prema-123-rk"/>
+          <con:entry key="username" value="prema-123-rk"/>
+        </con:parameters>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+
+  <con:testStep type="restrequest" name="GetUser" id="0646767f-7768-456d-a357-f9c51ce79fab">
+    <con:settings/>
+    <con:config service="https://petstore.swagger.io" methodName="GetUserByUsername" resourcePath="/v2/user/{username}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:restRequest name="GetUser" id="c1c3cf08-4667-4f7d-b3bd-2dd833bd9ee3" mediaType="application/json">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>https://petstore.swagger.io</con:endpoint>
+        <con:request/>
+        <con:originalUri>https://petstore.swagger.io/v2/user/prema-123-rk</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="c7686949-f46e-486a-a0c9-4595b5d1bf5b" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration><codes>200</codes></con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters><con:entry key="username" value="prema-123-rk"/></con:parameters>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+
+  <con:testStep type="restrequest" name="Logout" id="65ae86a7-c733-411f-98e5-6efb69cd3783">
+    <con:settings/>
+    <con:config service="https://petstore.swagger.io" methodName="Method 1" resourcePath="/v2/user/logout" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:restRequest name="Logout" id="fab29d03-2662-4e57-ad95-50639e793a6c" mediaType="application/json">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>https://petstore.swagger.io</con:endpoint>
+        <con:request/>
+        <con:originalUri>https://petstore.swagger.io/v2/user/logout</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="9369f57b-a5ed-4ada-ab2e-905b06a6e24e" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration><codes>200</codes></con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters/>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+
+  <con:testStep type="restrequest" name="DeleteUser" id="77449292-922b-44a0-b4a3-3b46645a639f">
+    <con:settings/>
+    <con:config service="https://petstore.swagger.io" methodName="DeleteUserByUsername" resourcePath="/v2/user/{username}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:restRequest name="DeleteUser" id="470cfeda-b57b-4b2f-ac96-2c858df08d47" mediaType="application/x-www-form-urlencoded" postQueryString="true">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>https://petstore.swagger.io</con:endpoint>
+        <con:request/>
+        <con:originalUri>https://petstore.swagger.io/v2/user/prema-123-rk</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="b44d8964-217c-4be0-a56f-31d373829b54" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration><codes>200</codes></con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters><con:entry key="username" value="prema-123-rk"/></con:parameters>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

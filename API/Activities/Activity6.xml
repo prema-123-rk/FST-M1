@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="61643e82-7f13-4ee5-a043-aef7692a8d1e" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Activity6" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings/>
+      <con:testStep type="restrequest" name="FindByStatus" id="c84fe2a9-5869-4e06-8082-04f59071db03">
+        <con:settings/>
+        <con:config service="https://petstore.swagger.io" methodName="FindByStatus" resourcePath="/v2/pet/findByStatus" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="FindByStatus" id="ad835973-e089-459b-8b25-f6a255fc406b" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://petstore.swagger.io</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://petstore.swagger.io/v2/pet/findByStatus</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="b14222ad-e3b9-4407-8f7a-682e0416fd55" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="status" value="sold"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasink" name="Data Sink" id="c572678b-d5a1-4ca2-8858-12fb5c0b321a">
+        <con:settings/>
+        <con:config xsi:type="con:DataSinkStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <dataSinkType>JDBC</dataSinkType>
+          <dataSinkProperties>
+            <entry key="Driver" value="com.mysql.cj.jdbc.Driver"/>
+            <entry key="Connection String" value="jdbc:mysql://localhost:3306/petstore_db?user=root&amp;password=YOUR_PASSWORD"/>
+            <entry key="Table" value="pet_results"/>
+          </dataSinkProperties>
+          <dataSinkColumns>
+            <entry key="id" value="${FindByStatus#Response#$[0]['id']}"/>
+            <entry key="name" value="${FindByStatus#Response#$[0]['name']}"/>
+            <entry key="status" value="${FindByStatus#Response#$[0]['status']}"/>
+          </dataSinkColumns>
+          <con:createStatement><![CDATA[CREATE TABLE IF NOT EXISTS pet_results (
+    id BIGINT,
+    name VARCHAR(255),
+    status VARCHAR(50)
+);]]></con:createStatement>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

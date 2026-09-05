@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config" id="d7b1b9ec-2539-4091-a9c4-4dad0d7f7c8e" activeEnvironment="Default" name="PetStoreProject" resourceRoot="">
+  <con:testSuite id="0a772b04-10f6-4f43-bd98-07a72b0afe79" name="Activity2">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+
+    <!-- Test Case 1: POST request to create a user -->
+    <con:testCase id="f5ab2db8-a877-43a0-8f04-c6a4838e8f31" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="1 - CreateUser (POST)" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="restrequest" name="CreateUser" id="f3d36fbc-3cd0-4577-8739-c22328930814">
+        <con:settings/>
+        <con:config service="https://petstore.swagger.io" methodName="CreateUser" resourcePath="/v2/user" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="CreateUser" id="dc40a5e1-a7f1-4cae-8897-27ae3c9df6da" mediaType="application/json" method="POST">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://petstore.swagger.io</con:endpoint>
+            <con:request><![CDATA[{
+  "id": 12345,
+  "username": "testuser01",
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "testuser01@example.com",
+  "password": "P@ssw0rd123",
+  "phone": "1234567890",
+  "userStatus": 0
+}]]></con:request>
+            <con:originalUri>https://petstore.swagger.io/v2/user</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="ee15a8b2-98f6-4c25-8d50-3268872fe6b6" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>username</con:name>
+          <con:value>testuser01</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+
+    <!-- Test Case 2: GET request to retrieve the user created above -->
+    <con:testCase id="53479127-d3c9-4857-ba1f-085d24fadb79" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="2 - GetUser (GET)" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="restrequest" name="GetUserByName" id="8e5ce3c9-f3af-40b5-bb8e-8a7ccce38377">
+        <con:settings/>
+        <con:config service="https://petstore.swagger.io" methodName="GetUserByName" resourcePath="/v2/user/{username}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="GetUserByName" id="e749f2a7-6b6b-4d45-b5eb-02b3e2918632" mediaType="application/json" method="GET">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://petstore.swagger.io</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://petstore.swagger.io/v2/user/{username}</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="33f0fb02-0847-4469-81ff-b91e6c6424c3" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="username" value="${#TestCase1#username}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+
+    <!-- Test Case 3: DELETE request to remove the user created above -->
+    <con:testCase id="807d539c-5d85-47d2-a613-2923700ce1fb" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="3 - DeleteUser (DELETE)" searchProperties="true" timeout="0">
+      <con:settings/>
+      <con:testStep type="restrequest" name="DeleteUser" id="f37ac617-b2b0-496d-b55a-798355f7606c">
+        <con:settings/>
+        <con:config service="https://petstore.swagger.io" methodName="DeleteUser" resourcePath="/v2/user/{username}" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="DeleteUser" id="a1b2c3d4-5e6f-47a8-9b0c-1d2e3f4a5b6c" mediaType="application/json" method="DELETE">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://petstore.swagger.io</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://petstore.swagger.io/v2/user/{username}</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="b2c3d4e5-6f7a-48b9-9c0d-2e3f4a5b6c7d" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="username" value="${#TestCase1#username}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
+
+  </con:testSuite>
+</con:soapui-project>

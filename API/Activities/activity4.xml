@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="ea704c18-6304-41b2-b71f-113518169b63" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Activity4" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings/>
+      <con:testStep type="datasource" name="DataSource" id="4c1ceb7d-39d2-45b7-a385-bb2dd2adbfa5">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <dataSourceType>FILE</dataSourceType>
+          <dataSourceProperties>
+            <entry key="File" value="testdata.txt"/>
+            <entry key="Encoding" value="UTF-8"/>
+          </dataSourceProperties>
+          <dataSourceLoopIndex>-1</dataSourceLoopIndex>
+          <properties>
+            <entry key="status" value=""/>
+          </properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="restrequest" name="FindByStatus" id="ffd42612-318b-4d65-bbba-f4b06025e4eb">
+        <con:settings/>
+        <con:config service="https://petstore.swagger.io" methodName="FindByStatus" resourcePath="/v2/pet/findByStatus" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:restRequest name="FindByStatus" id="582507d3-11bc-47bd-befe-15c1873e79d4" mediaType="application/json">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>https://petstore.swagger.io</con:endpoint>
+            <con:request/>
+            <con:originalUri>https://petstore.swagger.io/v2/pet/findByStatus</con:originalUri>
+            <con:assertion type="Valid HTTP Status Codes" id="390eed14-bf96-4347-8b86-13dfa60f95e0" name="Valid HTTP Status Codes">
+              <con:settings/>
+              <con:configuration>
+                <codes>200</codes>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+              <con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:parameters>
+              <con:entry key="status" value="${DataSource#status}"/>
+            </con:parameters>
+          </con:restRequest>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="0934b8c2-52e1-48fb-9413-6aad31834f25">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceLoopStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <targetStep>DataSource</targetStep>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>
