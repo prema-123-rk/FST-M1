@@ -4,7 +4,7 @@
     <con:properties>
     <con:property>
       <con:name>githubAccessToken</con:name>
-      <con:value>REPLACE_WITH_YOUR_TOKEN_IN_SOAPUI_NOT_HERE</con:value>
+      <con:value>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</con:value>
     </con:property>
   </con:properties>
 
